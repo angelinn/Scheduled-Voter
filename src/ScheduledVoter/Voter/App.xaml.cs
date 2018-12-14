@@ -1,10 +1,12 @@
-﻿using System;
+﻿using GalaSoft.MvvmLight.Ioc;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using Voter.ViewModels.Services;
 
 namespace Voter
 {
@@ -13,5 +15,12 @@ namespace Voter
     /// </summary>
     public partial class App : Application
     {
+        public App()
+        {
+            ConfigurationService service = new ConfigurationService();
+            service.Load();
+
+            SimpleIoc.Default.Register<ConfigurationService>(() => service);
+        }
     }
 }
