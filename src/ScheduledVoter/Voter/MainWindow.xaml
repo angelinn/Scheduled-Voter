@@ -5,12 +5,17 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Voter"
         mc:Ignorable="d"
+        DataContext="{Binding MainViewModel, Source={StaticResource Locator}}"
         Title="Angelin's Scheduled Voter" Height="450" Width="400">
     <Grid>
         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Width="250">
             <TextBlock Text="Login" HorizontalAlignment="Center" FontSize="30"/>
-            <TextBox Margin="0,20,0,20" />
-            <TextBox />
+            <TextBox Margin="0,20,0,20" Height="25" Text="{Binding Username}" />
+            <TextBox Text="{Binding Password}" Height="25">
+                <TextBox.InputBindings>
+                    <KeyBinding Command="{Binding ReturnUpCommand}" Key="Return" />
+                </TextBox.InputBindings>
+            </TextBox>
         </StackPanel>
     </Grid>
 </Window>
