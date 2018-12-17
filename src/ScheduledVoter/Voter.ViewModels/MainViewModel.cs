@@ -11,7 +11,7 @@ using Voter.ViewModels.Services;
 namespace Voter.ViewModels
 {
 
-    public class MainViewModel : ViewModelBase
+    public class MainViewModel : BaseViewModel
     {
         public ICommand ReturnUpCommand { get; private set; }
         private ConfigurationService configurationService;
@@ -24,8 +24,16 @@ namespace Voter.ViewModels
             configurationService = SimpleIoc.Default.GetInstance<ConfigurationService>();
             client.DefaultRequestHeaders.Add("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36 OPR/56.0.3051.116");
         }
+
+        private async Task LoginAsync()
+        {
+            if (await DoLoginAsync())
+                interactionService.ShowMessageBox("Login", "Login successful");
+            else
+                interactionService.ShowMessageBox("Login", "Login incorrect");
+        }
         
-        private async Task<bool> LoginAsync()
+        private async Task<bool> DoLoginAsync()
         {
             Dictionary<string, string> formEncoded = new Dictionary<string, string>()
             {
@@ -36,7 +44,12 @@ namespace Voter.ViewModels
             foreach (KeyValuePair<string, string> hiddenField in await GetHiddenFieldsAsync())
                 formEncoded.Add(hiddenField.Key, hiddenField.Value);
             
-            HttpResponseMessage response = await client.PostAsync(configurationService.Configuration.LoginPostFull, new FormUrlEncodedContent(formEncoded));
+            return await SendLoginRequestAsync(new FormUrlEncodedContent(formEncoded));
+        }
+
+        private async Task<bool> SendLoginRequestAsync(FormUrlEncodedContent content)
+        {
+            HttpResponseMessage response = await client.PostAsync(configurationService.Configuration.LoginPostFull, content);
             string loginHtml = await response.Content.ReadAsStringAsync();
             if (loginHtml.ToLower().Contains("logging in"))
                 return true;
