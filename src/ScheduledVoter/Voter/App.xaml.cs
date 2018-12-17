@@ -6,6 +6,8 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using Voter.Services;
+using Voter.ViewModels.Interfaces;
 using Voter.ViewModels.Services;
 
 namespace Voter
@@ -21,6 +23,7 @@ namespace Voter
             service.Load();
 
             SimpleIoc.Default.Register<ConfigurationService>(() => service);
+            SimpleIoc.Default.Register<IInteractionService, InteractionService>();
         }
     }
 }
