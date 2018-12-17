@@ -11,7 +11,7 @@
         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Width="250">
             <TextBlock Text="Login" HorizontalAlignment="Center" FontSize="30"/>
             <TextBox Margin="0,20,0,20" Height="25" Text="{Binding Username}" />
-            <TextBox Text="{Binding Password}" Height="25">
+            <TextBox Text="{Binding Password, UpdateSourceTrigger=PropertyChanged}" Height="25">
                 <TextBox.InputBindings>
                     <KeyBinding Command="{Binding ReturnUpCommand}" Key="Return" />
                 </TextBox.InputBindings>
