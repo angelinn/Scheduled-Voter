@@ -14,9 +14,10 @@ namespace Voter.ViewModels.Services
 
         public bool Load()
         {
-            if (File.Exists(DEFAULT_SETTINGS_FILE))
+            string path = Path.Combine("resources", DEFAULT_SETTINGS_FILE);
+            if (File.Exists(path))
             {
-                string configuration = File.ReadAllText(DEFAULT_SETTINGS_FILE);
+                string configuration = File.ReadAllText(path);
                 Configuration = JsonConvert.DeserializeObject<Configuration>(configuration);
 
                 return true;

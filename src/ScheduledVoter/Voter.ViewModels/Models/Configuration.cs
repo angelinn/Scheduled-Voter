@@ -6,7 +6,10 @@ namespace Voter.ViewModels.Models
 {
     public class Configuration
     {
-        public string Url { get; set; }
+        public string Base { get; set; }
+        public string Login { get; set; }
         public List<string> Votes { get; set; }
+
+        public string LoginFull => Base + Login;
     }
 }
