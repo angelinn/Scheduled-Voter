@@ -25,18 +25,23 @@ namespace Voter.ViewModels
             client.DefaultRequestHeaders.Add("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36 OPR/56.0.3051.116");
         }
         
-        private async Task LoginAsync()
+        private async Task<bool> LoginAsync()
         {
             Dictionary<string, string> formEncoded = new Dictionary<string, string>()
             {
-                {"username", username },
+                {"accountName", username },
                 {"password", password }
             };
 
             foreach (KeyValuePair<string, string> hiddenField in await GetHiddenFieldsAsync())
                 formEncoded.Add(hiddenField.Key, hiddenField.Value);
             
-            await client.PostAsync(configurationService.Configuration.LoginFull, new FormUrlEncodedContent(formEncoded));
+            HttpResponseMessage response = await client.PostAsync(configurationService.Configuration.LoginPostFull, new FormUrlEncodedContent(formEncoded));
+            string loginHtml = await response.Content.ReadAsStringAsync();
+            if (loginHtml.ToLower().Contains("logging in"))
+                return true;
+
+            return false;
         }
         
         private async Task<List<KeyValuePair<string, string>>> GetHiddenFieldsAsync()
