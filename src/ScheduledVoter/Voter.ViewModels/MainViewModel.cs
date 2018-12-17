@@ -36,6 +36,7 @@ namespace Voter.ViewModels
         
         private async Task<bool> DoLoginAsync()
         {
+            IsLoading = true;
             Dictionary<string, string> formEncoded = new Dictionary<string, string>()
             {
                 {"accountName", username },
@@ -45,7 +46,10 @@ namespace Voter.ViewModels
             foreach (KeyValuePair<string, string> hiddenField in await GetHiddenFieldsAsync())
                 formEncoded.Add(hiddenField.Key, hiddenField.Value);
             
-            return await SendLoginRequestAsync(new FormUrlEncodedContent(formEncoded));
+            bool loggedIn = await SendLoginRequestAsync(new FormUrlEncodedContent(formEncoded));
+            IsLoading = false;
+
+            return loggedIn;
         }
 
         private async Task<bool> SendLoginRequestAsync(FormUrlEncodedContent content)
@@ -54,7 +58,7 @@ namespace Voter.ViewModels
             string loginHtml = await response.Content.ReadAsStringAsync();
             if (loginHtml.ToLower().Contains("logging in"))
                 return true;
-
+            
             return false;
         }
         
@@ -85,6 +89,20 @@ namespace Voter.ViewModels
             set
             {
                 username = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        private bool isLoading;
+        public bool IsLoading
+        {
+            get
+            {
+                return isLoading;
+            }
+            set
+            {
+                isLoading = value;
                 RaisePropertyChanged();
             }
         }

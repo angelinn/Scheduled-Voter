@@ -4,9 +4,17 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Voter"
+        xmlns:cv="clr-namespace:Voter.Converters"
         mc:Ignorable="d"
         DataContext="{Binding MainViewModel, Source={StaticResource Locator}}"
         Title="Angelin's Scheduled Voter" Height="450" Width="400">
+
+    <Window.Resources>
+        <ResourceDictionary>
+            <cv:BoolToVisibilityConverter x:Key="BoolToVisibility" />
+        </ResourceDictionary>
+    </Window.Resources>
+
     <Grid>
         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Width="250">
             <TextBlock Text="Login" HorizontalAlignment="Center" FontSize="30"/>
@@ -16,6 +24,8 @@
                     <KeyBinding Command="{Binding ReturnUpCommand}" Key="Return" />
                 </PasswordBox.InputBindings>
             </PasswordBox>
+
+            <ProgressBar IsIndeterminate="True" Height="15" Margin="0,20,0,0" Visibility="{Binding IsLoading, Converter={StaticResource BoolToVisibility}}"  />
         </StackPanel>
     </Grid>
 </Window>
