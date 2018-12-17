@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Voter.ViewModels;
 
 namespace Voter
 {
@@ -23,6 +24,11 @@ namespace Voter
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        private void OnPasswordChanged(object sender, RoutedEventArgs e)
+        {
+            (DataContext as MainViewModel).Password = (sender as PasswordBox).Password;
         }
     }
 }

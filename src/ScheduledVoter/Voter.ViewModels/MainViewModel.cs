@@ -4,6 +4,7 @@ using GalaSoft.MvvmLight.Ioc;
 using HtmlAgilityPack;
 using System.Collections.Generic;
 using System.Net.Http;
+using System.Security;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Voter.ViewModels.Services;
@@ -38,7 +39,7 @@ namespace Voter.ViewModels
             Dictionary<string, string> formEncoded = new Dictionary<string, string>()
             {
                 {"accountName", username },
-                {"password", password }
+                {"password", Password.ToString() }
             };
 
             foreach (KeyValuePair<string, string> hiddenField in await GetHiddenFieldsAsync())
@@ -87,19 +88,7 @@ namespace Voter.ViewModels
                 RaisePropertyChanged();
             }
         }
-        
-        private string password;
-        public string Password
-        {
-            get
-            {
-                return password;
-            }
-            set
-            {
-                password = value;
-                RaisePropertyChanged();
-            }
-        }
+
+        public string Password { private get; set; }
     }
 }
