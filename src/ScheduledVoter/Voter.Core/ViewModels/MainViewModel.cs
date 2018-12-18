@@ -26,11 +26,11 @@ namespace Voter.Core.ViewModels
         private async Task LoginAsync()
         {
             if (await DoLoginAsync())
-                interactionService.ShowMessageBox("Login", "Login successful");
+                interactionService.ChangeWindow("Vote");
             else
                 interactionService.ShowMessageBox("Login", "Login incorrect");
         }
-        
+
         private async Task<bool> DoLoginAsync()
         {
             IsLoading = true;

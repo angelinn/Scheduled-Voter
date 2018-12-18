@@ -9,6 +9,7 @@ using System.Windows;
 using Voter.Services;
 using Voter.Core.Interfaces;
 using Voter.Core.Services;
+using System.Net.Http;
 
 namespace Voter
 {
@@ -24,6 +25,7 @@ namespace Voter
 
             SimpleIoc.Default.Register<ConfigurationService>(() => service);
             SimpleIoc.Default.Register<IInteractionService, InteractionService>();
+            SimpleIoc.Default.Register<HttpClient>(() => new HttpClient());
         }
     }
 }
