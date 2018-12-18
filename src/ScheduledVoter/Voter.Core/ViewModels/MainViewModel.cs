@@ -51,9 +51,9 @@ namespace Voter.Core.ViewModels
 
         private async Task<bool> SendLoginRequestAsync(FormUrlEncodedContent content)
         {
-            HttpResponseMessage response = await httpClient.PostAsync(configurationService["LoginPostFull"], content);
+            HttpResponseMessage response = await httpClient.PostAsync(GetUrl(Constants.LoginPostKey), content);
             string loginHtml = await response.Content.ReadAsStringAsync();
-            if (loginHtml.ToLower().Contains("logging in"))
+            if (loginHtml.ToLower().Contains(configurationService[Constants.LoggedInPhraseKey]))
                 return true;
             
             return false;
@@ -63,7 +63,7 @@ namespace Voter.Core.ViewModels
         {
             List<KeyValuePair<string, string>> fields = new List<KeyValuePair<string, string>>();
             
-            HttpResponseMessage loginResponse = await httpClient.GetAsync(configurationService["LoginFull"]);
+            HttpResponseMessage loginResponse = await httpClient.GetAsync(GetUrl(Constants.LoginKey));
             string loginHtml = await loginResponse.Content.ReadAsStringAsync();
 
             HtmlDocument document = new HtmlDocument();
@@ -74,6 +74,11 @@ namespace Voter.Core.ViewModels
                 fields.Add(new KeyValuePair<string, string>(node.Attributes["name"].Value, node.Attributes["value"].Value));
 
             return fields;
+        }
+
+        private string GetUrl(string key)
+        {
+            return (configurationService[Constants.BaseKey] + configurationService[key]);
         }
 
         private string username;

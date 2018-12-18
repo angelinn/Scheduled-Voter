@@ -16,7 +16,7 @@ namespace Voter.Core.ViewModels
 
         public async Task VoteAsync()
         {
-            foreach (string voteUrl in configurationService.GetArray("Votes"))
+            foreach (string voteUrl in configurationService.GetArray(Constants.VotesKey))
             {
                 await httpClient.GetAsync(voteUrl);
                 await Task.Delay(REQUEST_DELAY_MS);
