@@ -15,15 +15,12 @@ namespace Voter.ViewModels
     public class MainViewModel : BaseViewModel
     {
         public ICommand ReturnUpCommand { get; private set; }
-        private ConfigurationService configurationService;
-        private HttpClient client = new HttpClient();
         
         public MainViewModel()
         {
             ReturnUpCommand = new RelayCommand(async () => await LoginAsync());
 
-            configurationService = SimpleIoc.Default.GetInstance<ConfigurationService>();
-            client.DefaultRequestHeaders.Add("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36 OPR/56.0.3051.116");
+            httpClient.DefaultRequestHeaders.Add("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36 OPR/56.0.3051.116");
         }
 
         private async Task LoginAsync()
@@ -54,19 +51,19 @@ namespace Voter.ViewModels
 
         private async Task<bool> SendLoginRequestAsync(FormUrlEncodedContent content)
         {
-            HttpResponseMessage response = await client.PostAsync(configurationService.Configuration.LoginPostFull, content);
+            HttpResponseMessage response = await httpClient.PostAsync(configurationService.Configuration.LoginPostFull, content);
             string loginHtml = await response.Content.ReadAsStringAsync();
             if (loginHtml.ToLower().Contains("logging in"))
                 return true;
             
             return false;
         }
-        
+
         private async Task<List<KeyValuePair<string, string>>> GetHiddenFieldsAsync()
         {
             List<KeyValuePair<string, string>> fields = new List<KeyValuePair<string, string>>();
             
-            HttpResponseMessage loginResponse = await client.GetAsync(configurationService.Configuration.LoginFull);
+            HttpResponseMessage loginResponse = await httpClient.GetAsync(configurationService.Configuration.LoginFull);
             string loginHtml = await loginResponse.Content.ReadAsStringAsync();
 
             HtmlDocument document = new HtmlDocument();
