@@ -76,11 +76,6 @@ namespace Voter.Core.ViewModels
             return fields;
         }
 
-        private string GetUrl(string key)
-        {
-            return (configurationService[Constants.BaseKey] + configurationService[key]);
-        }
-
         private string username;
         public string Username
         {

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -9,9 +10,12 @@ namespace Voter.Core.ViewModels
     {
         private const int REQUEST_DELAY_MS = 5000;
 
-        public async Task CheckVotesAsync()
+        public async Task<bool> CheckVotesAsync()
         {
-            
+            HttpResponseMessage response = await httpClient.GetAsync(GetUrl(Constants.CheckVotesKey));
+            string html = await response.Content.ReadAsStringAsync();
+
+            return html.Contains(Constants.CanVoteKey);
         }
 
         public async Task VoteAsync()

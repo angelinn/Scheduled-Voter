@@ -21,5 +21,10 @@ namespace Voter.Core.ViewModels
             interactionService = SimpleIoc.Default.GetInstance<IInteractionService>();
             httpClient = SimpleIoc.Default.GetInstance<HttpClient>();
         }
+
+        protected string GetUrl(string key)
+        {
+            return (configurationService[Constants.BaseKey] + configurationService[key]);
+        }
     }
 }
