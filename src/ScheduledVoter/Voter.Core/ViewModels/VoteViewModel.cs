@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Voter.ViewModels
+namespace Voter.Core.ViewModels
 {
     public class VoteViewModel : BaseViewModel
     {

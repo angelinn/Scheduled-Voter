@@ -123,9 +123,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Voter.ViewModels\Voter.ViewModels.csproj">
+    <ProjectReference Include="..\Voter.Core\Voter.Core.csproj">
       <Project>{79a4471b-8abd-4945-8225-77769f894c7a}</Project>
-      <Name>Voter.ViewModels</Name>
+      <Name>Voter.Core</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

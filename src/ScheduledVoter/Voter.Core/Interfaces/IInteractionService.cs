@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Voter.ViewModels.Interfaces
+namespace Voter.Core.Interfaces
 {
     public interface IInteractionService
     {

@@ -5,7 +5,7 @@ VisualStudioVersion = 15.0.28307.106
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Voter", "Voter\Voter.csproj", "{713628A5-B5C8-4786-918E-280235F78456}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Voter.ViewModels", "Voter.ViewModels\Voter.ViewModels.csproj", "{79A4471B-8ABD-4945-8225-77769F894C7A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Voter.Core", "Voter.Core\Voter.Core.csproj", "{79A4471B-8ABD-4945-8225-77769F894C7A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

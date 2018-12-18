@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Voter.ViewModels.Models
+namespace Voter.Core.Models
 {
     public class Configuration
     {

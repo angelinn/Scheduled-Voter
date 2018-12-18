@@ -14,9 +14,9 @@
 
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Ioc;
-using Voter.ViewModels;
+using Voter.Core;
 
-namespace Voter.ViewModels.Locator
+namespace Voter.Core.ViewModels.Locator
 {
     /// <summary>
     /// This class contains static references to all the view models in the

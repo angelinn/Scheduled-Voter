@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using Voter.ViewModels.Interfaces;
+using Voter.Core.Interfaces;
 
 namespace Voter.Services
 {

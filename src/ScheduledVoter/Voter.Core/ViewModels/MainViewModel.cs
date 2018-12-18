@@ -7,9 +7,9 @@ using System.Net.Http;
 using System.Security;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using Voter.ViewModels.Services;
+using Voter.Core.Services;
 
-namespace Voter.ViewModels
+namespace Voter.Core.ViewModels
 {
 
     public class MainViewModel : BaseViewModel

@@ -3,9 +3,9 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
-using Voter.ViewModels.Models;
+using Voter.Core.Models;
 
-namespace Voter.ViewModels.Services
+namespace Voter.Core.Services
 {
     public class ConfigurationService
     {

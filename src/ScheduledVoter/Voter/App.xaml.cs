@@ -7,8 +7,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using Voter.Services;
-using Voter.ViewModels.Interfaces;
-using Voter.ViewModels.Services;
+using Voter.Core.Interfaces;
+using Voter.Core.Services;
 
 namespace Voter
 {

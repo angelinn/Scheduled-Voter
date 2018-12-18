@@ -4,10 +4,10 @@ using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Text;
-using Voter.ViewModels.Interfaces;
-using Voter.ViewModels.Services;
+using Voter.Core.Interfaces;
+using Voter.Core.Services;
 
-namespace Voter.ViewModels
+namespace Voter.Core.ViewModels
 {
     public class BaseViewModel : ViewModelBase
     {
