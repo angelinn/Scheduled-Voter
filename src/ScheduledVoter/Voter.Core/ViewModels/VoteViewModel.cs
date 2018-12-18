@@ -1,21 +1,29 @@
-﻿using System;
+﻿using GalaSoft.MvvmLight.Command;
+using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace Voter.Core.ViewModels
 {
     public class VoteViewModel : BaseViewModel
     {
         private const int REQUEST_DELAY_MS = 5000;
+        public ICommand LoadedCommand { get; private set; }
 
-        public async Task<bool> CheckVotesAsync()
+        public VoteViewModel()
+        {
+            LoadedCommand = new RelayCommand(async () => await CheckVotesAsync());
+        }
+
+        public async Task CheckVotesAsync()
         {
             HttpResponseMessage response = await httpClient.GetAsync(GetUrl(Constants.CheckVotesKey));
             string html = await response.Content.ReadAsStringAsync();
 
-            return html.Contains(Constants.CanVoteKey);
+            CanVote = html.Contains(Constants.CanVoteKey);
         }
 
         public async Task VoteAsync()
