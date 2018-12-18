@@ -16,10 +16,38 @@ namespace Voter.Core.ViewModels
 
         public async Task VoteAsync()
         {
-            foreach (string voteUrl in configurationService.Configuration.Votes)
+            foreach (string voteUrl in configurationService.GetArray("Votes"))
             {
                 await httpClient.GetAsync(voteUrl);
                 await Task.Delay(REQUEST_DELAY_MS);
+            }
+        }
+
+        private bool canVote;
+        public bool CanVote
+        {
+            get
+            {
+                return canVote;
+            }
+            set
+            {
+                canVote = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        private string logBuffer;
+        public string LogBuffer
+        {
+            get
+            {
+                return logBuffer;
+            }
+            set
+            {
+                logBuffer = value;
+                RaisePropertyChanged();
             }
         }
     }

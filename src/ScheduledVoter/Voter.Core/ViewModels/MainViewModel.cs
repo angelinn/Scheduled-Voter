@@ -51,7 +51,7 @@ namespace Voter.Core.ViewModels
 
         private async Task<bool> SendLoginRequestAsync(FormUrlEncodedContent content)
         {
-            HttpResponseMessage response = await httpClient.PostAsync(configurationService.Configuration.LoginPostFull, content);
+            HttpResponseMessage response = await httpClient.PostAsync(configurationService["LoginPostFull"], content);
             string loginHtml = await response.Content.ReadAsStringAsync();
             if (loginHtml.ToLower().Contains("logging in"))
                 return true;
@@ -63,7 +63,7 @@ namespace Voter.Core.ViewModels
         {
             List<KeyValuePair<string, string>> fields = new List<KeyValuePair<string, string>>();
             
-            HttpResponseMessage loginResponse = await httpClient.GetAsync(configurationService.Configuration.LoginFull);
+            HttpResponseMessage loginResponse = await httpClient.GetAsync(configurationService["LoginFull"]);
             string loginHtml = await loginResponse.Content.ReadAsStringAsync();
 
             HtmlDocument document = new HtmlDocument();
