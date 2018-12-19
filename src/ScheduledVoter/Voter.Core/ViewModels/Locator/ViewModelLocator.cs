@@ -30,10 +30,12 @@ namespace Voter.Core.ViewModels.Locator
         public ViewModelLocator()
         {
             SimpleIoc.Default.Register<MainViewModel>();
+            SimpleIoc.Default.Register<VoteViewModel>();
         }
 
         public MainViewModel MainViewModel => SimpleIoc.Default.GetInstance<MainViewModel>();
-        
+        public VoteViewModel VoteViewModel => SimpleIoc.Default.GetInstance<VoteViewModel>();
+
         public static void Cleanup()
         {
             // TODO Clear the ViewModels

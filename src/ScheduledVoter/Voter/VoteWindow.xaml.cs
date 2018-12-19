@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GalaSoft.MvvmLight.Messaging;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,6 +12,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Voter.Core.Messages;
 
 namespace Voter
 {
@@ -22,6 +24,12 @@ namespace Voter
         public VoteWindow()
         {
             InitializeComponent();
+            Messenger.Default.Register<LogAddedMessage>(this, m => OnLogAdded());
+        }
+
+        private void OnLogAdded()
+        {
+            svLog.ScrollToBottom();
         }
     }
 }

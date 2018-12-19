@@ -5,6 +5,7 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Voter.Core.Messages;
 
 namespace Voter.Core.ViewModels
 {
@@ -23,16 +24,26 @@ namespace Voter.Core.ViewModels
             HttpResponseMessage response = await httpClient.GetAsync(GetUrl(Constants.CheckVotesKey));
             string html = await response.Content.ReadAsStringAsync();
 
-            CanVote = html.Contains(Constants.CanVoteKey);
+            CanVote = html.Contains(configurationService[Constants.CanVoteKey]);
+            Log($"Can vote: {canVote}");
         }
 
         public async Task VoteAsync()
         {
             foreach (string voteUrl in configurationService.GetArray(Constants.VotesKey))
             {
+                Log($"Voting at {voteUrl} ...");
                 await httpClient.GetAsync(voteUrl);
+
+                Log($"Waiting {REQUEST_DELAY_MS} ms...");
                 await Task.Delay(REQUEST_DELAY_MS);
             }
+        }
+
+        private void Log(string message)
+        {
+            LogBuffer += $"[{DateTime.Now}] {message}\n";
+            MessengerInstance.Send(new LogAddedMessage());
         }
 
         private bool canVote;

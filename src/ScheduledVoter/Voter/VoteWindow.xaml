@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:Voter"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         mc:Ignorable="d"
+        DataContext="{Binding VoteViewModel, Source={StaticResource Locator}}"
         Title="VoteWindow" Height="450" Width="800">
 
     <i:Interaction.Triggers>
@@ -18,8 +19,12 @@
         <StackPanel>
             <StackPanel Orientation="Horizontal">
                 <TextBlock Text="Can vote" />
-                <TextBlock Text="ok" Margin="20,0,0,0" />
+                <TextBlock Text="{Binding CanVote}" Margin="20,0,0,0" />
             </StackPanel>
+
+            <ScrollViewer VerticalScrollBarVisibility="Auto" Name="svLog">
+                <TextBox IsReadOnly="True" Padding="5" Text="{Binding LogBuffer}" Name="txtLog" />
+            </ScrollViewer>
         </StackPanel>
     </Grid>
 </Window>
