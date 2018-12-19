@@ -34,6 +34,7 @@ namespace Voter.Core.ViewModels
         private async Task<bool> DoLoginAsync()
         {
             IsLoading = true;
+            
             Dictionary<string, string> formEncoded = new Dictionary<string, string>()
             {
                 {"accountName", username },
