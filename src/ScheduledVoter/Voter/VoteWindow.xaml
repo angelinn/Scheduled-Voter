@@ -15,16 +15,30 @@
         </i:EventTrigger>
     </i:Interaction.Triggers>
     
-    <Grid>
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="100" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
         <StackPanel>
             <StackPanel Orientation="Horizontal">
                 <TextBlock Text="Can vote" />
                 <TextBlock Text="{Binding CanVote}" Margin="20,0,0,0" />
             </StackPanel>
-
-            <ScrollViewer VerticalScrollBarVisibility="Auto" Name="svLog">
-                <TextBox IsReadOnly="True" Padding="5" Text="{Binding LogBuffer}" Name="txtLog" />
-            </ScrollViewer>
         </StackPanel>
+
+        <StackPanel Grid.Column="1">
+            <Button Content="Check vote" Width="120" Height="40"  />
+            <Button Content="Vote now" Width="120" Height="40" Margin="0,20,0,20" Command="{Binding VoteCommand}" />
+            <Button Content="Create task" Width="120" Height="40"  />
+        </StackPanel>
+
+        <ScrollViewer Grid.Row="1" Grid.ColumnSpan="2" VerticalScrollBarVisibility="Auto" Name="svLog">
+            <TextBox IsReadOnly="True" Padding="5" Text="{Binding LogBuffer}" Name="txtLog" />
+        </ScrollViewer>
     </Grid>
 </Window>
