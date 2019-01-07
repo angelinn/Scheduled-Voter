@@ -31,10 +31,5 @@ namespace Voter
         {
             svLog.ScrollToBottom();
         }
-
-        private void ColumnDefinition_MouseWheel(object sender, MouseWheelEventArgs e)
-        {
-
-        }
     }
 }

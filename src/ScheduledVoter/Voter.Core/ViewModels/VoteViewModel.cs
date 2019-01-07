@@ -12,17 +12,22 @@ namespace Voter.Core.ViewModels
     public class VoteViewModel : BaseViewModel
     {
         private const int REQUEST_DELAY_MS = 5000;
+
         public ICommand LoadedCommand { get; private set; }
         public ICommand VoteCommand { get; private set; }
+        public ICommand CheckVoteCommand { get; private set; }
+        
 
         public VoteViewModel()
         {
             LoadedCommand = new RelayCommand(async () => await CheckVotesAsync());
             VoteCommand = new RelayCommand(async () => await VoteAsync());
+            CheckVoteCommand = new RelayCommand(async () => await CheckVotesAsync());
         }
 
         public async Task CheckVotesAsync()
         {
+            Log("Checking votes...");
             HttpResponseMessage response = await httpClient.GetAsync(GetUrl(Constants.CheckVotesKey));
             string html = await response.Content.ReadAsStringAsync();
 

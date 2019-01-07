@@ -32,7 +32,7 @@
         </StackPanel>
 
         <StackPanel Grid.Column="1">
-            <Button Content="Check vote" Width="120" Height="40"  />
+            <Button Content="Check vote" Width="120" Height="40" Command="{Binding CheckVoteCommand}"  />
             <Button Content="Vote now" Width="120" Height="40" Margin="0,20,0,20" Command="{Binding VoteCommand}" />
             <Button Content="Create task" Width="120" Height="40"  />
         </StackPanel>
