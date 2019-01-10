@@ -13,11 +13,13 @@ namespace Voter.Core.ViewModels
     {
         private const int REQUEST_DELAY_MS = 5000;
 
+        private static Random random = new Random();
+
         public ICommand LoadedCommand { get; private set; }
         public ICommand VoteCommand { get; private set; }
         public ICommand CheckVoteCommand { get; private set; }
         
-
+        
         public VoteViewModel()
         {
             LoadedCommand = new RelayCommand(async () => await CheckVotesAsync());
@@ -38,17 +40,19 @@ namespace Voter.Core.ViewModels
         public async Task VoteAsync()
         {
             Log("Voting begins.");
-
+            
+            int sleepMs = 0;
             foreach (string voteUrl in configurationService.GetArray(Constants.VotesKey))
             {
                 string fullUrl = configurationService[Constants.BaseKey] + voteUrl;
                 Log($"Voting at {fullUrl} ...");
                 await httpClient.GetAsync(fullUrl);
-                
-                Log($"Waiting {REQUEST_DELAY_MS} ms...");
-                await Task.Delay(REQUEST_DELAY_MS);
-            }
 
+                sleepMs = REQUEST_DELAY_MS + random.Next(10, 1000);
+                Log($"Waiting {sleepMs} ms...");
+                await Task.Delay(sleepMs);
+            }
+            
             Log("Voting completed.");
         }
 
